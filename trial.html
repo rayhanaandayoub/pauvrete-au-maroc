@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+	<title>Layers Control Tutorial - Leaflet</title>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.leaflet-container {
+			height: 400px;
+			width: 600px;
+			max-width: 100%;
+			max-height: 100%;
+		}
+	</style>
+
+	
+</head>
+<body>
+
+    <div id="map" class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative;"><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(-107px, 0px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 18; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/9/106/193?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 512px; height: 512px; transform: translate3d(-49px, -482px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/9/107/193?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 512px; height: 512px; transform: translate3d(463px, -482px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/9/106/194?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 512px; height: 512px; transform: translate3d(-49px, 30px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/9/107/194?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 512px; height: 512px; transform: translate3d(463px, 30px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-shadow-pane"><img src="https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png" class="leaflet-marker-shadow leaflet-zoom-animated" alt="" style="margin-left: -12px; margin-top: -41px; width: 41px; height: 41px; transform: translate3d(278px, 314px, 0px);"><img src="https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png" class="leaflet-marker-shadow leaflet-zoom-animated" alt="" style="margin-left: -12px; margin-top: -41px; width: 41px; height: 41px; transform: translate3d(300px, 191px, 0px);"><img src="https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png" class="leaflet-marker-shadow leaflet-zoom-animated" alt="" style="margin-left: -12px; margin-top: -41px; width: 41px; height: 41px; transform: translate3d(438px, 200px, 0px);"><img src="https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png" class="leaflet-marker-shadow leaflet-zoom-animated" alt="" style="margin-left: -12px; margin-top: -41px; width: 41px; height: 41px; transform: translate3d(125px, 163px, 0px);"></div><div class="leaflet-pane leaflet-overlay-pane"></div><div class="leaflet-pane leaflet-marker-pane"><img src="https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png" class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" alt="" tabindex="0" style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; transform: translate3d(278px, 314px, 0px); z-index: 314;"><img src="https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png" class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" alt="" tabindex="0" style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; transform: translate3d(300px, 191px, 0px); z-index: 191;"><img src="https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png" class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" alt="" tabindex="0" style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; transform: translate3d(438px, 200px, 0px); z-index: 200;"><img src="https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png" class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" alt="" tabindex="0" style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; transform: translate3d(125px, 163px, 0px); z-index: 163;"></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(54621px, 99498px, 0px) scale(512);"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in">+</a><a class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button" aria-label="Zoom out">−</a></div></div><div class="leaflet-top leaflet-right"><div class="leaflet-control-layers leaflet-control" aria-haspopup="true"><a class="leaflet-control-layers-toggle" href="#" title="Layers"></a><section class="leaflet-control-layers-list"><div class="leaflet-control-layers-base"><label><div><input type="radio" class="leaflet-control-layers-selector" name="leaflet-base-layers_45" checked="checked"><span> Grayscale</span></div></label><label><div><input type="radio" class="leaflet-control-layers-selector" name="leaflet-base-layers_45"><span> Streets</span></div></label></div><div class="leaflet-control-layers-separator"></div><div class="leaflet-control-layers-overlays"><label><div><input type="checkbox" class="leaflet-control-layers-selector" checked=""><span> Cities</span></div></label></div></section></div></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a></div></div></div></div>
+    
+    <script>
+ 
+        var uniIcon = L.icon({
+                    iconUrl: 'icone.png',
+
+                    iconSize:     [50, 40], // size of the icon
+                    iconAnchor:   [25, 20], // point of the icon which will correspond to marker's location
+                    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                });
+
+        var cities = L.layerGroup();
+    
+        var casa = L.marker([33.57, -7.60], {icon: uniIcon}).bindPopup('Casablanca : 26%').addTo(cities);
+        var temara = L.marker([33.92, -6.93], {icon: uniIcon}).bindPopup('Témara : 5,5%').addTo(cities);
+        var kech = L.marker([31.63, -8.01], {icon: uniIcon}).bindPopup('Marrakech : 5,1%').addTo(cities);
+        var harrouda = L.marker([33.64, -7.45], {icon: uniIcon}).bindPopup('Ain Harrouda : 4,8%').addTo(cities);
+        var bouazza = L.marker([33.52, -7.83], {icon: uniIcon}).bindPopup('Dar Bouazza : 4,1%').addTo(cities);
+        var kenitra = L.marker([34.25, -6.58], {icon: uniIcon}).bindPopup('Kénitra : 3,9%').addTo(cities);
+        var guercif = L.marker([34.23, -3.35], {icon: uniIcon}).bindPopup('Guercif : 3,3%').addTo(cities);
+        var rabat = L.marker([33.97, -6.85], {icon: uniIcon}).bindPopup('Rabat : 3%').addTo(cities);
+        var sale = L.marker([34.03, -6.77], {icon: uniIcon}).bindPopup('Salé : 3%').addTo(cities);
+        var lahraouyine = L.marker([33.54, -7.53], {icon: uniIcon}).bindPopup('Lahraouyine : 2,7%').addTo(cities);
+        var mohammedia = L.marker([33.68, -7.38], {icon: uniIcon}).bindPopup('Mohammédia : 2,3%').addTo(cities);
+        var skhirate = L.marker([33.93, -6.90], {icon: uniIcon}).bindPopup('Skhirate : 2,2%').addTo(cities);
+        var larache = L.marker([35.17, -6.15], {icon: uniIcon}).bindPopup('Larache : 1,9%').addTo(cities);
+        var bouskoura = L.marker([33.60, -7.63], {icon: uniIcon}).bindPopup('Bouskoura : 1,8%').addTo(cities);
+        var slimane = L.marker([34.26, -5.93], {icon: uniIcon}).bindPopup('Sidi Slimane : 1,4%').addTo(cities);
+        var fes = L.marker([34.03, -5.00], {icon: uniIcon}).bindPopup('Fès : 1,3%').addTo(cities);
+        var mellil = L.marker([33.55, -7.48], {icon: uniIcon}).bindPopup('Tit Mellil : 1,2%').addTo(cities);
+        var sidiyahya = L.marker([34.31, -6.31], {icon: uniIcon}).bindPopup('Sidi Yahya El Gharb : 1,2%').addTo(cities);
+        var essemara = L.marker([28.71, -9.54], {icon: uniIcon}).bindPopup('Es-semara : 1,1%').addTo(cities);        
+        var khemisset = L.marker([33.81, -6.06], {icon: uniIcon}).bindPopup('Khémisset : 1,1%').addTo(cities);        
+        var mansouria = L.marker([33.73, -7.28], {icon: uniIcon}).bindPopup('El Mansouria : 1%').addTo(cities); 
+        var sidibennour = L.marker([32.65, -8.43], {icon: uniIcon}).bindPopup('Sidi Bennour : 1%').addTo(cities); 
+
+
+        var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+        var mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+    
+        var grayscale = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr});
+        var streets = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mbAttr});
+    
+        var map = L.map('map', {
+            center: [29, -8.9714],
+            zoom: 5,
+            layers: [grayscale, cities]
+        });
+    
+        var baseLayers = {
+            'Grayscale': grayscale,
+            'Streets': streets
+        };
+    
+        var overlays = {
+            'Cities': cities
+        };
+    
+        var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
+    </script>
+     
+</body>
+</html>

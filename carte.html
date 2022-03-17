@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
+	
+	<title>COVID-19 Rabat-Salé-Kénitra </title>
+    <link rel="icon" type="image/jpg" href="assets/images/covid.jpg" />
+	
+	
+	<!-- Bootstrap -->
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css" rel="stylesheet">
+	<!-- Icons -->
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	<!-- Fonts -->
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Alice|Open+Sans:400,300,700">
+	<!-- Custom styles -->
+	<link rel="stylesheet" href="assets/css/styles.css">
+
+	<!--[if lt IE 9]> <script src="assets/js/html5shiv.js"></script> <![endif]-->
+	<link rel="stylesheet" href="css/leaflet.css" />
+	<script src="assets/js/leaflet.js"></script>
+	<script src="assets/js/jquery-3.6.0.js"></script>
+    <script src="assets/js/leaflet-timeline-slider.js"></script>
+
+</head>
+<body class="home">
+
+
+	<div class="container">
+		
+		<div class="row section topspace">
+			<div class="col-md-12">
+				<p class="lead text-center text-muted" style="color: rgb(8, 8, 8);">le taux de pauvreté au maroc par région entre 2004 et 2014</p>
+			</div>
+		</div> <!-- / section -->
+		
+		<div class="row section featured topspace">
+			<div class="row">
+				<style>
+					#map {
+						width: 600px;
+						height: 400px;
+						margin: auto;
+					}
+			        .info {
+					    padding: 6px 8px;
+			            color: white;
+					    font: 14px/16px Arial, Helvetica, sans-serif;
+					    background: rgb(8, 69, 119);
+					    background: rgb(36, 101, 199);
+					    box-shadow: 0 0 15px rgba(166, 221, 140, 0.2);
+					    border-radius: 5px;
+					}
+					.info h4 {
+					    margin: 0 0 5px;
+					    color: #121213;
+					}
+			        .legend {
+			           line-height: 18px;
+			           color: #ffffff;
+			        }
+			        .legend i {
+			           width: 18px;
+			           height: 18px;
+			           float: left;
+			           margin-right: 8px;
+			           opacity: 1;
+					}
+					.col-left {
+					  flex: 1;
+					  margin-left: 10px;
+					}
+					.col-right {
+					  flex: 1.25;
+					  margin-right: 10px;
+					}
+			
+				</style>
+			    <div class="col-right">
+					<div id='map'></div>
+	                <script type="text/javascript" src="pauvrete.js"></script>
+
+
+	                <script type="text/javascript">
+	            
+
+	                   var mymap = L.map('map').setView([28.60, -4.90], 5);
+	            
+	                   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	                       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	                   }).addTo(mymap);
+
+	                    var geoJson =L.geoJson(pauvrete)
+	            
+	                    function getColor(attribut) {
+	                        return attribut > 50 ? '#08589e' :
+	                               attribut > 40 ? '#2b8cbe' :
+	                               attribut > 30 ? '#7bccc4' :
+	                               attribut > 20 ? '#a8ddb5' :
+	                               attribut > 10 ? '#ccebc5' :
+	                                                    '#f0f9e8';
+	                    }
+	                    function stylisermonFeature(feature) {
+	                        return {
+				                weight: 2,
+				                opacity: 1,
+				                color: 'black',
+				                /*dashArray: '3',*/
+				                fillOpacity: 1,
+				                fillColor: getColor(feature.properties.pauvrete)
+			                };
+		                }
+
+
+	            
+
+	                    function highlightFeature(e) {
+		                var layer = e.target;
+
+		                    layer.setStyle({
+		                    weight: 5,
+		                    color: '#666',
+		                    dashArray: '',
+		                    fillOpacity: 0.7
+		                });
+
+		                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+		                    layer.bringToFront();
+		                    }
+		                    info.update(layer.feature.properties);
+
+		                }
+
+			            function resetHighlight(e) {
+			    	        geojson.resetStyle(e.target);
+			    	            info.update();
+
+				        }
+			            function zoomToFeature(e) {
+			                map.fitBounds(e.target.getBounds());
+			            }
+
+			            function onEachFeature(feature, layer) {
+			            layer.on({
+			                mouseover: highlightFeature,
+			                mouseout: resetHighlight,
+			                click: zoomToFeature,
+			        
+			            });
+	            
+	        
+			            }
+			            
+			        var info = L.control(); 
+			            
+
+			        info.onAdd = function (mymap) {
+			            this._div = L.DomUtil.create('div', 'info'); 
+			            this.update();
+			            return this._div;
+			        };
+
+
+			        info.update = function (props) {
+			            this._div.innerHTML = '<h4>Maroc</h4>' +  (props ?
+			                'Region : ' + props.region + '</b> <br />Indice de pauvrete : ' + props.pauvrete + '</sup>'
+			                : 'Vous êtes hors le Maroc !');
+			        };
+
+			        info.addTo(mymap);
+
+			        getDataAddMarkers = function( {label, value, map, exclamation} ) {
+			                map.eachLayer(function (layer) {
+			                        if (layer instanceof L.Marker) {
+			                            map.removeLayer(layer);
+			                        }
+			                });
+
+			                filteredData = pauvrete.features.filter(function (i, n) {
+			                    return i.properties.title===label;
+			                    });
+
+			                /*var markerArray = [];*/
+			                
+			                geojson = L.geoJson(filteredData, {
+			                    style: stylisermonFeature,
+			                    onEachFeature: onEachFeature,
+			                        /*content = `${exclamation} <br> ${feature.properties.content} `
+			                        var popup = L.popup().setContent(content);
+			                        layer.bindPopup(popup);
+			                        markerArray.push(layer);
+			                        layer.on({
+			                            mouseover: highlightFeature,
+			                            mouseout: resetHighlight,
+			        
+			                        })
+			                    }*/
+			                }).addTo(mymap);
+			                
+			                /*var markerGroup = L.featureGroup(markerArray);
+			                map.fitBounds(markerGroup.getBounds()).setZoom(8);*/
+			            };
+
+			            L.control.timelineSlider({
+			                timelineItems: ["2004", "2014"], 
+			                changeMap: getDataAddMarkers,
+			                extraChangeMapParams: {exclamation: "pauvrete.feature.properties.region"} })
+			            .addTo(mymap);
+			            var legend = L.control({ position: "bottomright" });
+
+			        legend.onAdd = function (mymap) {
+			          var div = L.DomUtil.create("div", "info legend"),
+			            grades = [0, 10, 20, 30, 40, 50],
+			            labels = [];
+
+			  
+			          for (var i = 0; i < grades.length; i++) {
+			            div.innerHTML +=
+			            '<i style="background:' +
+			            getColor(grades[i] + 1) +
+			            '"></i> ' +
+			            grades[i] +
+			            (grades[i + 1] ? "&ndash;" + grades[i + 1] + "<br>" : "+");
+			          }
+
+			          return div;
+			        };
+
+			        legend.addTo(mymap);    
+
+
+			        </script>
+			    </div>
+			    <div class="col-left" style="text-align: center;">
+			      <h5>⚙️ Comment ça marche:</h5>
+			      <h6>&emsp;Etape 1: Choisissez une date</h6>
+			      <h6>&emsp;Etape 2: Mettez le curseur sur une province</h6>
+			      <h6>&emsp;Etape 3: Visualisez le nombre de Cas confirmés</h6>
+			      <h6>&emsp;Vous pouvez cliquer + pour zoomer et - pour dézoomer</h6>
+			    </div>
+			</div>
+		</div> <!-- / section -->
+
+
+
+
+
+
+
+
+<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="assets/js/template.js"></script>
+</body>
+</html>
+
+
